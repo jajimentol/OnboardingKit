@@ -42,6 +42,13 @@ class ButtonContainerView: UIView {
         return button
     }()
     
+    private lazy var stackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [nextButton, ctaButton])
+        view.axis = .horizontal
+        view.spacing = 16
+        return view
+    }()
+    
     init(tintColor: UIColor) {
         super.init(frame: .zero)
         self.tintColor = tintColor
@@ -53,8 +60,17 @@ class ButtonContainerView: UIView {
     }
     
     private func setupView() {
-        backgroundColor = .systemPink
-
+        
+        backgroundColor = .white
+        
+        addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 24, left: 24, bottom: 36, right: 24))
+        }
+        
+        nextButton.snp.makeConstraints { make in
+            make.width.equalTo(ctaButton.snp.width).multipliedBy(0.5)
+        }
     }
     
     func nextButtonTapped() {

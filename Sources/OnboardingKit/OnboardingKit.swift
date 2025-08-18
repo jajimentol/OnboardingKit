@@ -2,7 +2,7 @@ import UIKit
 
 
 /// The kit that manages the onboarding process in the application.
-/// This class is responsible for presenting the onboarding view controller with the provided slides and tint color.
+@available(iOS 15.0, *)
 @MainActor
 public class OnboardingKit {
     

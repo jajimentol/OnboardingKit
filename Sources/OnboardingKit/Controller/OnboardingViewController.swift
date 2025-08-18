@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+@available(iOS 15.0, *)
 final class OnboardingViewController: UIViewController {
     
     /// The slides to be displayed in the onboarding process.
@@ -51,6 +52,8 @@ final class OnboardingViewController: UIViewController {
     
     private func setupViews() {
         
+        view.backgroundColor = self.tintColor.withAlphaComponent(0.2)
+        
         view.addSubview(stackView)
         stackView.snp.makeConstraints { make in
             make.edges.equalTo(view)
@@ -58,6 +61,7 @@ final class OnboardingViewController: UIViewController {
         
         buttonContainerView.snp.makeConstraints { make in
             make.height.equalTo(120)
+            
         }
     }
     
