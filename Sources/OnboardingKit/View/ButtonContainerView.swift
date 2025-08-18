@@ -11,6 +11,8 @@ import SnapKit
 @available(iOS 15.0, *)
 class ButtonContainerView: UIView {
     
+    private var config: OnboardingButtons
+    
     private lazy var nextButton: UIButton = {
         let button = UIButton(configuration: UIButton.Configuration.bordered(),
                               primaryAction: UIAction { [weak self] _ in
@@ -49,9 +51,9 @@ class ButtonContainerView: UIView {
         return view
     }()
     
-    init(tintColor: UIColor) {
+    init(config: OnboardingButtons) {
+        self.config = config
         super.init(frame: .zero)
-        self.tintColor = tintColor
         setupView()
     }
     
@@ -78,7 +80,8 @@ class ButtonContainerView: UIView {
     }
     
     func ctaButtonTapped() {
-        
+        config.onDismiss?()
+        config.onCta?()
     }
     
 }

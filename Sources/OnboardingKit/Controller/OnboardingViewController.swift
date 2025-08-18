@@ -11,21 +11,8 @@ import SnapKit
 @available(iOS 15.0, *)
 final class OnboardingViewController: UIViewController {
     
-    /// The slides to be displayed in the onboarding process.
-    private let slides: [Slide]
-    
-    /// The tint color to be used in the top bars.
-    private let tintColor: UIColor
-    
-    private lazy var transitionView: TransitionView = {
-        let view = TransitionView()
-        return view
-    }()
-    
-    private lazy var buttonContainerView: ButtonContainerView = {
-        let view = ButtonContainerView(tintColor: self.tintColor)
-        return view
-    }()
+    private var transitionView: TransitionView
+    private var buttonContainerView: ButtonContainerView
     
     private lazy var stackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [transitionView, buttonContainerView])
@@ -37,10 +24,13 @@ final class OnboardingViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(slides: [Slide], tintColor: UIColor) {
-        self.slides = slides
-        self.tintColor = tintColor
+    init(config: OnboardingConfiguration) {
+        self.buttonContainerView = ButtonContainerView(config: config.buttons)
+        self.transitionView = TransitionView(content: config.content)
         super.init(nibName: nil, bundle: nil)
+        
+        self.modalTransitionStyle = .crossDissolve
+        self.modalPresentationStyle = .fullScreen
         
     }
     
@@ -52,7 +42,7 @@ final class OnboardingViewController: UIViewController {
     
     private func setupViews() {
         
-        view.backgroundColor = self.tintColor.withAlphaComponent(0.2)
+        view.backgroundColor = UIColor.cyan.withAlphaComponent(0.2)
         
         view.addSubview(stackView)
         stackView.snp.makeConstraints { make in

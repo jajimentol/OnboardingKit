@@ -8,9 +8,12 @@
 import UIKit
 
 class TransitionView: UIView {
-        
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    private let slides: [Slide]
+    
+    init(content: OnboardingContent) {
+        self.slides = content.slides
+        super.init(frame: .zero)
         setupView()
     }
     
