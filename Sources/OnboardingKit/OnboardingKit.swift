@@ -12,8 +12,9 @@ public class OnboardingKit {
     /// The tint color to be used in the top bars.
     private let tintColor: UIColor
     
-    private var onboardingViewController: OnboardingViewController = {
-        let controller = OnboardingViewController()
+    private lazy var onboardingViewController: OnboardingViewController = {
+        let controller = OnboardingViewController(slides: self.slides,
+                                                  tintColor: self.tintColor)
         controller.modalTransitionStyle = .crossDissolve
         controller.modalPresentationStyle = .fullScreen
         return controller
