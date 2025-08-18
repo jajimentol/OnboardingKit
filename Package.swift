@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "OnboardingKit",
     platforms: [
-        .iOS(.v13), // Specify the minimum iOS version supported by this package.
+        .iOS(.v15), // Specify the minimum iOS version supported by this package.
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.

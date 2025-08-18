@@ -8,12 +8,15 @@
 import UIKit
 import SnapKit
 
+@available(iOS 15.0, *)
 class ButtonContainerView: UIView {
     
     private lazy var nextButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(configuration: UIButton.Configuration.bordered(),
+                              primaryAction: UIAction { [weak self] _ in
+            self?.nextButtonTapped()
+        })
         button.setTitle("Next", for: .normal)
-        button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         button.layer.borderColor = tintColor.cgColor
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 12
@@ -23,9 +26,11 @@ class ButtonContainerView: UIView {
     }()
     
     private lazy var ctaButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(configuration: UIButton.Configuration.filled(),
+                              primaryAction: UIAction { [weak self] _ in
+            self?.ctaButtonTapped()
+        })
         button.setTitle("Get Started", for: .normal)
-        button.addTarget(self, action: #selector(ctaButtonTapped), for: .touchUpInside)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = tintColor
@@ -52,11 +57,11 @@ class ButtonContainerView: UIView {
 
     }
     
-    @objc func nextButtonTapped() {
+    func nextButtonTapped() {
         
     }
     
-    @objc func ctaButtonTapped() {
+    func ctaButtonTapped() {
         
     }
     
