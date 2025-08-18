@@ -13,10 +13,11 @@ class TransitionView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.backgroundColor = . yellow
         return imageView
     }()
     
-    private lazy var barView: [AnimatedBarView] = {
+    private lazy var barList: [AnimatedBarView] = {
         var list: [AnimatedBarView] = []
         slides.forEach { _ in
             list.append(AnimatedBarView())
@@ -26,12 +27,25 @@ class TransitionView: UIView {
     
     private lazy var barStackView: UIStackView = {
         let stackView = UIStackView()
-        barView.forEach { stackView.addArrangedSubview($0) }
+        barList.forEach { stackView.addArrangedSubview($0) }
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 8
         return stackView
     }()
+    
+    private lazy var titleView: TitleView = {
+        let view = TitleView()
+        return view
+    }()
+    
+    private lazy var container: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [imageView , titleView])
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        return stackView
+    }()
+        
     
     private let slides: [Slide]
     
@@ -43,6 +57,22 @@ class TransitionView: UIView {
     
     private func setupView() {
         
+        addSubview(container)
+        addSubview(barStackView)
+        
+        container.snp.makeConstraints { make in
+            make.edges.equalTo(self)
+        }
+        
+        barStackView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(12)
+            make.top.equalTo(self.safeAreaLayoutGuide).inset(8)
+            make.height.equalTo(4)
+        }
+        
+        imageView.snp.makeConstraints { make in
+            make.height.equalTo(container.snp.height).multipliedBy(0.8)
+        }
     }
     
     required init?(coder: NSCoder) {
