@@ -83,12 +83,15 @@ class TransitionView: UIView {
     private func showNext() {
         
         let image: UIImage
+        let title: String
         
         if slides.indices.contains(currentIndex + 1) {
             image = slides[currentIndex+1].image
+            title = slides[currentIndex+1].title
             currentIndex += 1
         } else {
             image = slides.first!.image
+            title = slides.first!.title
             currentIndex = 0
         }
         
@@ -97,6 +100,7 @@ class TransitionView: UIView {
             duration: 0.5,
             options: .transitionCrossDissolve) {
                 self.imageView.image = image
+                self.titleView.setTitle(title)
             }
         
     }

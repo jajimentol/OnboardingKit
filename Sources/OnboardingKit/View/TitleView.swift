@@ -9,10 +9,29 @@ import UIKit
 
 final class TitleView: UIView {
     
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 2
+        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.textAlignment = .center
+        label.minimumScaleFactor = 0.5
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
         
+        addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(36)
+        }
+    }
+    
+    func setTitle(_ title: String) {
+        titleLabel.text = title
     }
     
     required init?(coder: NSCoder) {
