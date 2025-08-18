@@ -11,6 +11,8 @@ import SnapKit
 @available(iOS 15.0, *)
 class ButtonContainerView: UIView {
     
+    var nextButtonDidTap: (() -> Void)?
+    
     private var config: OnboardingButtons
     
     private lazy var nextButton: UIButton = {
@@ -76,7 +78,7 @@ class ButtonContainerView: UIView {
     }
     
     func nextButtonTapped() {
-        
+        nextButtonDidTap?()
     }
     
     func ctaButtonTapped() {
