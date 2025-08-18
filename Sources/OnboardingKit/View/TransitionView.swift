@@ -9,6 +9,8 @@ import UIKit
 
 class TransitionView: UIView {
     
+    private var timer: DispatchSourceTimer?
+    
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -53,6 +55,26 @@ class TransitionView: UIView {
         self.slides = content.slides
         super.init(frame: .zero)
         setupView()
+    }
+    
+    func start() {
+        buildTimerIfNeeded()
+        timer?.resume()
+    }
+    
+    func stop() {
+        timer?.cancel()
+        timer = nil
+    }
+    
+    private func buildTimerIfNeeded() {
+        guard timer == nil else { return }
+        timer = DispatchSource.makeTimerSource(queue: .main)
+        timer?.schedule(deadline: .now(), repeating: 3, leeway: .seconds(1))
+        timer?.setEventHandler { [weak self] in
+            guard let self else { return }
+            print("show next")
+        }
     }
     
     private func setupView() {
