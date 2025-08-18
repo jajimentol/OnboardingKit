@@ -27,6 +27,7 @@ final class OnboardingViewController: UIViewController {
     init(config: OnboardingConfiguration) {
         self.buttonContainerView = ButtonContainerView(config: config.buttons)
         self.transitionView = TransitionView(content: config.content)
+        self.transitionView.tintColor = config.buttons.tintColor
         super.init(nibName: nil, bundle: nil)
         
         self.modalTransitionStyle = .crossDissolve
