@@ -15,7 +15,7 @@ class TransitionView: UIView {
     }
     
     private func setupView() {
-        backgroundColor = .green
+        
     }
     
     required init?(coder: NSCoder) {
