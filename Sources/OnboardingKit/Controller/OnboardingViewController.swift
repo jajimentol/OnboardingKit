@@ -22,7 +22,7 @@ final class OnboardingViewController: UIViewController {
     }()
     
     private lazy var buttonContainerView: ButtonContainerView = {
-       let view = ButtonContainerView()
+        let view = ButtonContainerView(tintColor: self.tintColor)
         return view
     }()
     
