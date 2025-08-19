@@ -39,10 +39,15 @@ public struct OnboardingContent {
     public let slideDuration: Int
     public let slides: [Slide]
     public let shouldLoop: Bool
-    public init(slides: [Slide], slideDuration: Int = 3, shouldLoop: Bool = true) {
+    public let font: UIFont
+    public init(slides: [Slide],
+                slideDuration: Int = 3,
+                shouldLoop: Bool = true,
+                font: UIFont = UIFont.boldSystemFont(ofSize: 16)) {
         self.slideDuration = slideDuration
         self.slides = slides
         self.shouldLoop = shouldLoop
+        self.font = font
     }
 }
 
