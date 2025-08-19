@@ -117,7 +117,7 @@ class TransitionView: UIView {
             duration: 0.5,
             options: .transitionCrossDissolve) {
                 self.imageView.image = image
-                self.titleView.setTitle(title)
+                self.titleView.setTitle(title, font: self.content.font)
             }
         
         currrentBarView.startAnimating()
@@ -158,7 +158,7 @@ class TransitionView: UIView {
                 currentIndex = -1
             }
         case .right:
-            if slides.indices.contains(currentIndex + 1) || content.shouldLoop {
+            if slides.indices.contains(currentIndex + 1) || content.shouldLoop {
                 barList[currentIndex].finishAnimation()
             } else {
                 return

@@ -72,7 +72,10 @@ class ViewController: UIViewController {
         ]
         
         let config = OnboardingConfiguration(
-            content: OnboardingContent(slides: slides, slideDuration: 3, shouldLoop: false),
+            content: OnboardingContent(slides: slides,
+                                       slideDuration: 3,
+                                       shouldLoop: false,
+                                       font: UIFont.boldSystemFont(ofSize: 50)),
             buttons: OnboardingButtons(
                 onCta: {
                     UIView.animate(withDuration: 0.5) {
@@ -80,10 +83,10 @@ class ViewController: UIViewController {
                     }
                 },
                 nextButtonTitle: "İleri",
-                ctaButtontitle: "Hemen Başla",
-                tintColor: UIColor.systemBlue
-            ))
-        
+                ctaButtonTitle: "Hemen Başla",
+                tintColor: UIColor.systemBlue,
+                buttonFont: UIFont.boldSystemFont(ofSize: 30)
+        ))
         
         onboardingKit = OnboardingKit(config: config)
         onboardingKit?.launchOnboarding(root: self)

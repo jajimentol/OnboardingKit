@@ -22,13 +22,19 @@ public struct OnboardingConfiguration {
 public struct OnboardingButtons {
     public var onCta: (() -> Void)?
     public let nextButtonTitle: String
-    public let ctaButtontitle: String
+    public let ctaButtonTitle: String
     public let tintColor: UIColor
-    public init(onCta: (() -> Void)?, nextButtonTitle: String, ctaButtontitle: String, tintColor: UIColor) {
+    public let buttonFont: UIFont
+    public init(onCta: (() -> Void)?,
+                nextButtonTitle: String,
+                ctaButtonTitle: String,
+                tintColor: UIColor,
+                buttonFont: UIFont = UIFont.boldSystemFont(ofSize: 16)) {
         self.onCta = onCta
         self.nextButtonTitle = nextButtonTitle
-        self.ctaButtontitle = ctaButtontitle
+        self.ctaButtonTitle = ctaButtonTitle
         self.tintColor = tintColor
+        self.buttonFont = buttonFont
     }
     
     internal var onDismiss: (() -> Void)?
@@ -39,10 +45,15 @@ public struct OnboardingContent {
     public let slideDuration: Int
     public let slides: [Slide]
     public let shouldLoop: Bool
-    public init(slides: [Slide], slideDuration: Int = 3, shouldLoop: Bool = true) {
+    public let font: UIFont
+    public init(slides: [Slide],
+                slideDuration: Int = 3,
+                shouldLoop: Bool = true,
+                font: UIFont = UIFont.boldSystemFont(ofSize: 16)) {
         self.slideDuration = slideDuration
         self.slides = slides
         self.shouldLoop = shouldLoop
+        self.font = font
     }
 }
 

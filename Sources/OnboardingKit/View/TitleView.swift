@@ -12,7 +12,6 @@ final class TitleView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.textAlignment = .center
         label.minimumScaleFactor = 0.5
         label.adjustsFontSizeToFitWidth = true
@@ -30,8 +29,9 @@ final class TitleView: UIView {
         }
     }
     
-    func setTitle(_ title: String) {
+    func setTitle(_ title: String, font: UIFont) {
         titleLabel.text = title
+        titleLabel.font = font
     }
     
     required init?(coder: NSCoder) {
