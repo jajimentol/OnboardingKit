@@ -27,7 +27,7 @@ To integrate OnboardingKit into your Xcode project using Swift Package Manager, 
 https://github.com/jajimentol/OnboardingKit
 ```swift
 dependencies: [
-    .package(url: "[https://github.com/kelvinfok/OnboardingKit.git](https://github.com/jajimentol/OnboardingKit)", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/jajimentol/OnboardingKit", .upToNextMajor(from: "1.0.0"))
 ]
 ```
 
