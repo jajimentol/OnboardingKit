@@ -1,5 +1,8 @@
 OnboardingKit
 
+![til](video_preview.gif)
+
+
 OnboardingKit provides an onboarding flow that is simple and easy to implement.
 
 ## Contents
