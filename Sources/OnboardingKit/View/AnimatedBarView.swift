@@ -76,7 +76,6 @@ final class AnimatedBarView: UIView {
                 foregroundBarView.alpha = 0
                 animator.stopAnimation(true)
             case .animating:
-//                print(bounds.width)
                 foregroundBarView.transform = .init(translationX: -bounds.width, y: 0)
                 foregroundBarView.alpha = 1
                 animator.startAnimation()
