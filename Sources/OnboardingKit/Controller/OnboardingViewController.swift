@@ -39,11 +39,11 @@ final class OnboardingViewController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
+        setupGesture()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        transitionView.start()
     }
     
     private func setupViews() {
@@ -57,7 +57,22 @@ final class OnboardingViewController: UIViewController {
         
         buttonContainerView.snp.makeConstraints { make in
             make.height.equalTo(120)
-            
+        }
+    }
+    
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        transitionView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleTap(_ tap: UITapGestureRecognizer) {
+        let point = tap.location(in: view)
+        let width = view.bounds.width
+        
+        if point.x < width / 2 {
+            transitionView.handleTap(direction: .left)
+        } else {
+            transitionView.handleTap(direction: .right)
         }
     }
     

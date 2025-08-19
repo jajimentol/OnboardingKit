@@ -22,7 +22,8 @@ class TransitionView: UIView {
     private lazy var barList: [AnimatedBarView] = {
         var list: [AnimatedBarView] = []
         slides.forEach { _ in
-            list.append(AnimatedBarView(barColor: self.tintColor))
+            list.append(AnimatedBarView(barColor: self.tintColor,
+                                        duration: content.slideDuration))
         }
         return list
     }()
@@ -47,13 +48,16 @@ class TransitionView: UIView {
         stackView.distribution = .fill
         return stackView
     }()
-        
     
-    private let slides: [Slide]
+    private let content: OnboardingContent
+    private lazy var slides = {
+        return content.slides
+    }()
+
     private var currentIndex: Int = -1
     
     init(content: OnboardingContent) {
-        self.slides = content.slides
+        self.content = content
         super.init(frame: .zero)
         setupView()
     }
@@ -71,7 +75,9 @@ class TransitionView: UIView {
     private func buildTimerIfNeeded() {
         guard timer == nil else { return }
         timer = DispatchSource.makeTimerSource(queue: .main)
-        timer?.schedule(deadline: .now(), repeating: 3, leeway: .seconds(1))
+        timer?.schedule(deadline: .now(),
+                        repeating: DispatchTimeInterval.seconds(self.content.slideDuration),
+                        leeway: .seconds(1))
         timer?.setEventHandler { [weak self] in
             guard let self else { return }
             DispatchQueue.main.async {
@@ -84,15 +90,21 @@ class TransitionView: UIView {
         
         let image: UIImage
         let title: String
+        let currrentBarView: AnimatedBarView
         
         if slides.indices.contains(currentIndex + 1) {
             image = slides[currentIndex+1].image
             title = slides[currentIndex+1].title
+            currrentBarView = barList[currentIndex + 1]
             currentIndex += 1
         } else {
             image = slides.first!.image
             title = slides.first!.title
             currentIndex = 0
+            barList.forEach { bar in
+                bar.resetAnimation()
+            }
+            currrentBarView = barList[currentIndex]
         }
         
         UIView.transition(
@@ -102,6 +114,8 @@ class TransitionView: UIView {
                 self.imageView.image = image
                 self.titleView.setTitle(title)
             }
+        
+        currrentBarView.startAnimating()
         
     }
     
@@ -123,6 +137,27 @@ class TransitionView: UIView {
         imageView.snp.makeConstraints { make in
             make.height.equalTo(container.snp.height).multipliedBy(0.8)
         }
+        
+        start()
+    }
+    
+    func handleTap(direction: Direction) {
+        switch direction {
+        case .left:
+            barList[currentIndex].resetAnimation()
+            if slides.indices.contains(currentIndex - 1) {
+                barList[currentIndex - 1].resetAnimation()
+                currentIndex -= 2
+            } else {
+                barList[currentIndex].resetAnimation()
+                currentIndex = -1
+            }
+        case .right:
+            barList[currentIndex].finishAnimation()
+        }
+        timer?.cancel()
+        timer = nil
+        start()
     }
     
     required init?(coder: NSCoder) {

@@ -36,8 +36,10 @@ public struct OnboardingButtons {
 
 @MainActor
 public struct OnboardingContent {
+    public let slideDuration: Int
     public let slides: [Slide]
-    public init(slides: [Slide]) {
+    public init(slides: [Slide], slideDuration: Int = 3) {
+        self.slideDuration = slideDuration
         self.slides = slides
     }
 }
