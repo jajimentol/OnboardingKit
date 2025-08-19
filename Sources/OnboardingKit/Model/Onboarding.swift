@@ -22,13 +22,19 @@ public struct OnboardingConfiguration {
 public struct OnboardingButtons {
     public var onCta: (() -> Void)?
     public let nextButtonTitle: String
-    public let ctaButtontitle: String
+    public let ctaButtonTitle: String
     public let tintColor: UIColor
-    public init(onCta: (() -> Void)?, nextButtonTitle: String, ctaButtontitle: String, tintColor: UIColor) {
+    public let buttonFont: UIFont
+    public init(onCta: (() -> Void)?,
+                nextButtonTitle: String,
+                ctaButtonTitle: String,
+                tintColor: UIColor,
+                buttonFont: UIFont = UIFont.boldSystemFont(ofSize: 16)) {
         self.onCta = onCta
         self.nextButtonTitle = nextButtonTitle
-        self.ctaButtontitle = ctaButtontitle
+        self.ctaButtonTitle = ctaButtonTitle
         self.tintColor = tintColor
+        self.buttonFont = buttonFont
     }
     
     internal var onDismiss: (() -> Void)?
