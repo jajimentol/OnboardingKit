@@ -55,6 +55,9 @@ final class OnboardingViewController: UIViewController {
             make.edges.equalTo(view)
         }
         
+        buttonContainerView.nextButtonDidTap = { [weak self] in
+            self?.transitionView.handleTap(direction: .right)
+        }
         buttonContainerView.snp.makeConstraints { make in
             make.height.equalTo(120)
         }

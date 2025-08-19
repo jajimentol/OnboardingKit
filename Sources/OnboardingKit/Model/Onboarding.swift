@@ -38,9 +38,11 @@ public struct OnboardingButtons {
 public struct OnboardingContent {
     public let slideDuration: Int
     public let slides: [Slide]
-    public init(slides: [Slide], slideDuration: Int = 3) {
+    public let shouldLoop: Bool
+    public init(slides: [Slide], slideDuration: Int = 3, shouldLoop: Bool = true) {
         self.slideDuration = slideDuration
         self.slides = slides
+        self.shouldLoop = shouldLoop
     }
 }
 

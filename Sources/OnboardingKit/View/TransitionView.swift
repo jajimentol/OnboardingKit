@@ -98,13 +98,18 @@ class TransitionView: UIView {
             currrentBarView = barList[currentIndex + 1]
             currentIndex += 1
         } else {
-            image = slides.first!.image
-            title = slides.first!.title
-            currentIndex = 0
-            barList.forEach { bar in
-                bar.resetAnimation()
+            if content.shouldLoop {
+                image = slides.first!.image
+                title = slides.first!.title
+                currentIndex = 0
+                barList.forEach { bar in
+                    bar.resetAnimation()
+                }
+                currrentBarView = barList[currentIndex]
+            } else {
+                return
+                
             }
-            currrentBarView = barList[currentIndex]
         }
         
         UIView.transition(
@@ -153,7 +158,11 @@ class TransitionView: UIView {
                 currentIndex = -1
             }
         case .right:
-            barList[currentIndex].finishAnimation()
+            if slides.indices.contains(currentIndex + 1) || content.shouldLoop {
+                barList[currentIndex].finishAnimation()
+            } else {
+                return
+            }
         }
         timer?.cancel()
         timer = nil
