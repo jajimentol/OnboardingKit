@@ -16,26 +16,37 @@ class ButtonContainerView: UIView {
     private var config: OnboardingButtons
     
     private lazy var nextButton: UIButton = {
-        let button = UIButton(configuration: UIButton.Configuration.bordered(),
+        
+        let font = config.buttonFont
+        let container = AttributeContainer([NSAttributedString.Key.font: font])
+        let attribString = AttributedString(config.nextButtonTitle, attributes: container)
+        var config = UIButton.Configuration.bordered()
+        config.attributedTitle = attribString
+        
+        let button = UIButton(configuration: config,
                               primaryAction: UIAction { [weak self] _ in
             self?.nextButtonTapped()
         })
-        button.setTitle("Next", for: .normal)
         button.layer.borderColor = tintColor.cgColor
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 12
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.setTitleColor(tintColor, for: .normal)
         return button
     }()
     
     private lazy var ctaButton: UIButton = {
-        let button = UIButton(configuration: UIButton.Configuration.filled(),
+        
+        let font = config.buttonFont
+        let container = AttributeContainer([NSAttributedString.Key.font: font])
+        let attribString = AttributedString(config.ctaButtonTitle, attributes: container)
+        var config = UIButton.Configuration.filled()
+        config.attributedTitle = attribString
+        
+        let button = UIButton(configuration: config,
                               primaryAction: UIAction { [weak self] _ in
             self?.ctaButtonTapped()
         })
-        button.setTitle("Get Started", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = tintColor
         button.layer.shadowColor = tintColor.cgColor
