@@ -38,11 +38,20 @@ final class AnimatedBarView: UIView {
     private let barColor: UIColor
     private let duration: Int
     
+    private var didSetInitial = false
+    
     init(barColor: UIColor, duration: Int) {
         self.duration = duration
         self.barColor = barColor
         super.init(frame: .zero)
         setupView()
+        setupAnimator()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard !didSetInitial, bounds.width > 0 else { return }
+        didSetInitial = true
         observe()
     }
     
@@ -69,19 +78,23 @@ final class AnimatedBarView: UIView {
     private func observe() {
         $state
             .receive(on: DispatchQueue.main)
-            .sink { [unowned self] state in
+            .sink { [weak self] state in
+                guard let self else { return }
             switch state {
             case .clear:
-                setupAnimator()
-                foregroundBarView.alpha = 0
-                animator.stopAnimation(true)
+                self.setupAnimator()
+                self.foregroundBarView.alpha = 0
+                self.animator.stopAnimation(true)
             case .animating:
-                foregroundBarView.transform = .init(translationX: -bounds.width, y: 0)
-                foregroundBarView.alpha = 1
-                animator.startAnimation()
+                if bounds.width == 0 {
+                   print("0")
+                }
+                self.foregroundBarView.transform = .init(translationX: -self.bounds.width, y: 0)
+                self.foregroundBarView.alpha = 1
+                self.animator.startAnimation()
             case .filled:
-                animator.stopAnimation(true)
-                foregroundBarView.transform = .identity
+                self.animator.stopAnimation(true)
+                self.foregroundBarView.transform = .identity
             }
         }.store(in: &subscribers)
     }
